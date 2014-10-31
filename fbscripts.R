@@ -45,8 +45,8 @@ fbscraper <- function(x) {
   #write.table(df, file = "demo.csv", append = FALSE, quote = TRUE, sep = ";",eol = "\n", na = "NA", dec = ".", row.names = FALSE,col.names = TRUE, qmethod = c("escape", "double"),fileEncoding = "UTF-8")
 }
 createDbase <- function(x) {
-  df <- read.csv('demo.csv')
-  df$id <- as.character(df$id)
+  #df <- read.csv('demo.csv')
+  #df$id <- as.character(df$id)
   userList <- capture.output(write.table(matrix(as.character(df$id),nrow=1), sep=",",row.names=FALSE, col.names=FALSE, quote=FALSE))
   ## create facebookobjects.py
   sink('facebookobjects.py')
@@ -112,4 +112,5 @@ likeGraph <- function() {
   graph <- cbind(DF$liker,DF$actor)
   graph <- na.omit(unique(graph))
   g <<- graph.data.frame(graph, directed = T)
+  write.graph(g,'./likersgraph.graphml',format = 'graphml')
 }
