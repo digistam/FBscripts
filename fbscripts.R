@@ -44,10 +44,16 @@ fbscraper <- function(x) {
   #write.table(paste(id,',#',name,sep=""),file='test.txt',quote = FALSE, col.names = F, row.names = F)
   #write.table(df, file = "demo.csv", append = FALSE, quote = TRUE, sep = ";",eol = "\n", na = "NA", dec = ".", row.names = FALSE,col.names = TRUE, qmethod = c("escape", "double"),fileEncoding = "UTF-8")
 }
-createDbase <- function(x) {
+createDataSet <- function(x) {
+  df <- read.csv(x)
+  df$id <- as.character(df$id)
+  DF <<- as.data.frame(df)
+  userList <<- capture.output(write.table(matrix(as.character(df$id),nrow=1), sep=",",row.names=FALSE, col.names=FALSE, quote=FALSE))
+}
+createObjectList <- function(x) {
   #df <- read.csv('demo.csv')
   #df$id <- as.character(df$id)
-  userList <- capture.output(write.table(matrix(as.character(df$id),nrow=1), sep=",",row.names=FALSE, col.names=FALSE, quote=FALSE))
+  userList <- capture.output(write.table(matrix(as.character(DF$id),nrow=1), sep=",",row.names=FALSE, col.names=FALSE, quote=FALSE))
   ## create facebookobjects.py
   sink('facebookobjects.py')
   cat("objects = [\n")
